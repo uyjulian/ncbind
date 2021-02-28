@@ -8,7 +8,7 @@
 #############################################
 
 INCFLAGS += -Iexternal -Iexternal/ncbind
-SOURCES += ../ncbind/ncbind.cpp
+SOURCES += external/ncbind/ncbind.cpp
 
 TP_STUB_BASE = external/ncbind/external/tp_stubz/
 include $(TP_STUB_BASE)/Rules.lib.make
