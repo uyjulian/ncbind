@@ -26,6 +26,7 @@ BOOLEAN WINAPI DllMain(HINSTANCE hDllHandle, DWORD nReason, LPVOID lpReserved)
 	return TRUE;
 }
 
+#if 0
 static iTVPFunctionExporter * FunctionExporter = NULL;
 
 //---------------------------------------------------------------------------
@@ -89,6 +90,7 @@ static void std_terminate_handler()
 	}
 	std::abort();
 }
+#endif
 
 //---------------------------------------------------------------------------
 static tjs_int GlobalRefCountAtInit = 0;
@@ -97,8 +99,10 @@ EXPORT(HRESULT) V2Link(iTVPFunctionExporter *exporter)
 {
 	// スタブの初期化(必ず記述する)
 	TVPInitImportStub(exporter);
+#if 0
 	FunctionExporter = exporter;
 	std::set_terminate(std_terminate_handler);
+#endif
 
 	NCB_LOG_W("V2Link");
 
