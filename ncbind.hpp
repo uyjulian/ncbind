@@ -846,6 +846,7 @@ struct ncbIMethodObject {
 	typedef ncbTypedefs::FlagsT        FlagsT;
 	typedef ncbTypedefs::InstanceTypeT TypesT;
 
+	virtual ~ncbIMethodObject() {};
 	virtual DispatchT GetDispatch() const = 0;
 	virtual FlagsT    GetFlags()    const = 0;
 	virtual TypesT    GetType()     const = 0;
@@ -875,7 +876,7 @@ struct ncbNativeClassMethodBase : public tTJSDispatch {
 		default: break;
 		}
 	}
-	~ncbNativeClassMethodBase() {}
+	virtual ~ncbNativeClassMethodBase() {}
 
 	/// IsInstanceOf 実装
 	tjs_error TJS_INTF_METHOD IsInstanceOf(
@@ -1143,7 +1144,7 @@ protected:
 		// コンストラクタ代替ファクトリ
 		template <typename MethodT, class ClassT, class FunctorT>
 		ResultT CallInvoke(MethodT const &m, ClassT *inst, DefsT::Tag<FunctorT>, DefsT::NumTag<ivsFactory>) const {
-			typedef ncbInstanceAdaptor<ClassT> AdaptorT;
+			typedef __attribute__((unused)) ncbInstanceAdaptor<ClassT> AdaptorT;
 			try {
 				if (!(inst = CallerT::Factory(FunctorT(_result, _numparams, _param, _objthis), m))) {
 					TVPThrowExceptionMessage(TJS_W("NativeClassInstance creation faild."));
