@@ -10,10 +10,20 @@
 #endif
 
 //--------------------------------------
-int WINAPI
-DllEntryPoint(HINSTANCE /*hinst*/, unsigned long /*reason*/, void* /*lpReserved*/)
+HINSTANCE DllHandle = NULL;
+BOOLEAN WINAPI DllMain(HINSTANCE hDllHandle, DWORD nReason, LPVOID lpReserved)
 {
-	return 1;
+	switch (nReason)
+	{
+		case DLL_PROCESS_ATTACH:
+		{
+			DisableThreadLibraryCalls(hDllHandle);
+			DllHandle = hDllHandle;
+			break;
+		}
+	}
+
+	return TRUE;
 }
 
 //---------------------------------------------------------------------------

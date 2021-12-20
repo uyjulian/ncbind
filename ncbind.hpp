@@ -5,6 +5,8 @@
 #include "tp_stub.h"
 #include "ncb_invoke.hpp"
 
+extern HINSTANCE DllHandle;
+
 ////////////////////////////////////////
 // ログ出力用マクロ
 
