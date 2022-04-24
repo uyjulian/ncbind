@@ -159,3 +159,23 @@ EXPORT(HRESULT) V2Unlink()
 ncbAutoRegister::ThisClassT const*
 ncbAutoRegister::_top[ncbAutoRegister::LINE_COUNT] = NCB_INNER_AUTOREGISTER_LINES_INSTANCE;
 
+#if 0
+void* operator new(size_t size)
+{
+	void *p;
+	p = TVP_malloc(size);
+	if (p == NULL)
+	{
+		static const std::bad_alloc oom_exception;
+		throw oom_exception;
+	}
+	return p;
+}
+
+void operator delete(void* ptr, size_t size)
+{
+	(void)size;
+	TVP_free(ptr);
+}
+#endif
+
