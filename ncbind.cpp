@@ -5,12 +5,18 @@
 #define EXPORT(hr) extern "C" __declspec(dllexport) hr __stdcall
 
 #ifdef _MSC_VER
+# if defined(_M_AMD64) || defined(_M_X64)
+#  pragma comment(linker, "/EXPORT:V2Link")
+#  pragma comment(linker, "/EXPORT:V2Unlink")
+# else
 #pragma comment(linker, "/EXPORT:V2Link=_V2Link@4")
 #pragma comment(linker, "/EXPORT:V2Unlink=_V2Unlink@0")
+#endif
 #endif
 
 //--------------------------------------
 HINSTANCE DllHandle = NULL;
+HINSTANCE gDllInstance = NULL;
 BOOLEAN WINAPI DllMain(HINSTANCE hDllHandle, DWORD nReason, LPVOID lpReserved)
 {
 	switch (nReason)
@@ -19,12 +25,25 @@ BOOLEAN WINAPI DllMain(HINSTANCE hDllHandle, DWORD nReason, LPVOID lpReserved)
 		{
 			DisableThreadLibraryCalls(hDllHandle);
 			DllHandle = hDllHandle;
+			gDllInstance = hDllHandle;
 			break;
 		}
 	}
 
 	return TRUE;
 }
+#if 0
+//--------------------------------------
+extern "C"
+BOOL WINAPI
+DllMain(HINSTANCE hinst, DWORD reason, LPVOID /*lpReserved*/)
+{
+  if (reason == DLL_PROCESS_ATTACH)
+    gDllInstance = hinst;
+
+  return 1;
+}
+#endif
 
 #if 0
 static iTVPFunctionExporter * FunctionExporter = NULL;
