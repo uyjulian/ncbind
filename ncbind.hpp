@@ -1,7 +1,10 @@
 #ifndef _ncbind_hpp_
 #define _ncbind_hpp_
 
+#ifndef NO_V2LINK
 #include <windows.h>
+#endif
+
 #include "tp_stub.h"
 #include "ncb_invoke.hpp"
 
@@ -2428,9 +2431,11 @@ private:
 #define NCB_PRE_UNREGIST_CALLBACK(cb)  NCB_REGISTER_CALLBACK(PreRegist,  0, &cb, 0_ ## cb)
 #define NCB_POST_UNREGIST_CALLBACK(cb) NCB_REGISTER_CALLBACK(PostRegist, 0, &cb, 0_ ## cb)
 
+#ifndef NO_V2LINK
 ////////////////////////////////////////
 /// レジスト前後のコールバック登録
 #define NCB_DLL_HINSTANCE gDllInstance
 extern HINSTANCE gDllInstance;
+#endif
 
 #endif
