@@ -13,6 +13,7 @@
 #  pragma comment(linker, "/EXPORT:V2Unlink=_V2Unlink@0")
 # endif
 #endif
+#if 0
 #ifdef __GNUC__
 asm (".section .drectve");
 asm (".ascii \" -export:V2Link=V2Link@4 -export:V2Unlink=V2Unlink@0\"");
